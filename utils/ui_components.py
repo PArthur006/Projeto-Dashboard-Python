@@ -32,7 +32,6 @@ def render_about_page():
     **Funcionalidades Principais:**
     - **Dashboard Interativo:** Análise visual de salários com filtros dinâmicos.
     - **Análise de Tendências:** Gráfico de evolução da mediana salarial ao longo dos anos.
-    - **Previsão com Machine Learning:** Uma ferramenta que estima faixas salariais com base nas características de um cargo, utilizando um modelo de regressão treinado.
     """)
 
     st.markdown("<hr>", unsafe_allow_html=True)
@@ -46,7 +45,6 @@ def render_about_page():
         - **Pandas:** Para manipulação e análise dos dados.
         - **Streamlit:** Para a criação do dashboard.
         - **Plotly:** Para os gráficos interativos.
-        - **Scikit-learn:** Para o modelo de Machine Learning.
         """)
 
     with col2:
