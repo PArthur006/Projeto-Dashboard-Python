@@ -2,6 +2,8 @@
 
 Dashboard interativo para análise de salários em tecnologia e dados, usando Python e Streamlit. Iniciado na Imersão de Dados da Alura, foi aprimorado para um portfólio completo.
 
+![Pré-visualização do Dashboard](https://github.com/user-attachments/assets/4d870190-b582-40b4-b3c3-14cb316b74ea)
+
 ---
 
 ## 🚀 Sobre o Projeto
