@@ -1,7 +1,8 @@
+# Seção de Importações
+# Importa as bibliotecas necessárias e funções auxiliares dos módulos 'utils'.
 import streamlit as st
 import pandas as pd
 
-# Importando as funções dos nossos módulos
 from utils.data_loader import load_data
 from utils.ui_components import render_sidebar, render_about_page
 from utils.plots import (
@@ -11,20 +12,18 @@ from utils.plots import (
     plot_remoto_pie,
     plot_salario_mapa
 )
-# --- Configuração da Página ---
+
+# Define o título da página, ícone e layout.
 st.set_page_config(
     page_title="Dashboard de Salários de Dados",
     page_icon="📊",
     layout="wide",
 )
 
-# --- Carregamento dos Dados ---
+# Carrega o dataset inicial e aplica filtros com base nas seleções do usuário na barra lateral.
 df_original = load_data()
-
-# --- Barra Lateral e Filtros ---
 anos, senioridades, contratos, tamanhos = render_sidebar(df_original)
 
-# --- Filtragem do DataFrame ---
 df_filtrado = df_original[
     (df_original['ano'].isin(anos)) &
     (df_original['senioridade'].isin(senioridades)) &
@@ -32,16 +31,17 @@ df_filtrado = df_original[
     (df_original['tamanho_empresa'].isin(tamanhos))
 ]
 
-# --- Título Principal ---
+# Título Principal do Dashboard
 st.title("🎲 Dashboard de Análise de Salários na Área de Dados")
 
-# --- Abas de Navegação ---
+# Definição das Abas da Interface
 tab_dashboard, tab_about = st.tabs(["📊 Dashboard Principal", "ℹ️ Sobre"])
 
-# --- Aba 1: Dashboard Principal ---
+# Conteúdo da Aba do Dashboard Principal
 with tab_dashboard:
     st.header("Métricas Gerais (Salário Anual em USD)")
 
+    # Cálculo e Exibição das Métricas Chave
     if not df_filtrado.empty:
         salario_medio = df_filtrado['usd'].mean()
         salario_maximo = df_filtrado['usd'].max()
@@ -50,7 +50,6 @@ with tab_dashboard:
     else:
         salario_medio, salario_maximo, total_registros, cargo_mais_frequente = 0, 0, 0, "N/A"
 
-    # KPIs
     col1, col2, col3, col4 = st.columns(4)
     col1.metric("Salário médio", f"${salario_medio:,.0f}")
     col2.metric("Salário máximo", f"${salario_maximo:,.0f}")
@@ -60,10 +59,10 @@ with tab_dashboard:
     st.markdown("<hr>", unsafe_allow_html=True)
     st.header("Análises Visuais")
 
-    # Gráfico de Evolução Salarial
+    # Seção de Gráficos
+    # Renderiza os diferentes gráficos de análise de salários.
     plot_evolucao_salarial(df_filtrado)
 
-    # Gráficos em colunas
     col_graf1, col_graf2 = st.columns(2)
     with col_graf1:
         plot_top_cargos(df_filtrado)
@@ -76,10 +75,10 @@ with tab_dashboard:
     with col_graf4:
         plot_salario_mapa(df_filtrado)
 
-    # Tabela de Dados Detalhados dentro de um Expander
+    # Exibição da Tabela de Dados Detalhados
     with st.expander("📂 Ver tabela de dados detalhados"):
         st.dataframe(df_filtrado)
 
-# --- Aba 3: Sobre ---
+# Renderiza a página de informações sobre o dashboard.
 with tab_about:
     render_about_page()

@@ -1,14 +1,21 @@
+# utils/ui_components.py
+
+# Este módulo contém funções para renderizar componentes da interface do usuário no Streamlit,
+# como a barra lateral de filtros e a página 'Sobre' do dashboard.
+
 import streamlit as st
 
+# Função para renderizar a barra lateral de filtros.
+# Recebe o DataFrame original para extrair as opções de filtro e retorna os valores selecionados.
 def render_sidebar(df):
-    """Renderiza a barra lateral com os filtros e retorna os valores selecionados."""
+    
     st.sidebar.header("🔍 Filtros")
 
-    # Filtro de Ano
+    # Filtro por Ano
     anos_disponiveis = sorted(df['ano'].unique())
     anos_selecionados = st.sidebar.multiselect("Ano", anos_disponiveis, default=anos_disponiveis)
 
-    # Filtro de Senioridade
+    # Filtro por Senioridade
     senioridades_disponiveis = sorted(df['senioridade'].unique())
     senioridades_selecionadas = st.sidebar.multiselect("Senioridade", senioridades_disponiveis, default=senioridades_disponiveis)
 
@@ -22,8 +29,9 @@ def render_sidebar(df):
 
     return anos_selecionados, senioridades_selecionadas, contratos_selecionados, tamanhos_selecionados
 
+# Função para renderizar o conteúdo da página 'Sobre' o projeto.
 def render_about_page():
-    """Renderiza a página 'Sobre' com informações do projeto e do autor."""
+    
     st.header("Sobre o Projeto")
     st.markdown("""
     Este dashboard foi desenvolvido como um projeto de portfólio para demonstrar 
@@ -39,6 +47,7 @@ def render_about_page():
     col1, col2 = st.columns(2)
 
     with col1:
+        # Seção de Tecnologias Utilizadas
         st.subheader("🛠️ Tecnologias Utilizadas")
         st.markdown("""
         - **Python:** Linguagem principal.
@@ -48,6 +57,7 @@ def render_about_page():
         """)
 
     with col2:
+        # Seção de Fonte dos Dados
         st.subheader("📄 Fonte dos Dados")
         st.markdown("""
         Os dados foram obtidos de uma fonte pública e contêm informações sobre salários 
@@ -56,6 +66,7 @@ def render_about_page():
 
     st.markdown("<hr>", unsafe_allow_html=True)
 
+    # Seção Sobre o Autor
     st.subheader("👨‍💻 Sobre o Autor")
     st.markdown("""
     Este projeto foi criado pelo Desenvolvedor Front-End **Pedro Arthur Rodrigues**.
